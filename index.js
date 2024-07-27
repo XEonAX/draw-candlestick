@@ -30,49 +30,46 @@
 //   close: [30.13],
 //   low: [28.10],
 // }
-    
 
+import { Canvas } from '@napi-rs/canvas';
+import { min,max, scaleLinear } from 'd3'
+export default function drawCandleStick(input) {
+    var width = 400;
+    var height = 400;
 
-module.exports = function drawCandleStick(input) {
-    var width  = 400;
-    var height  = 400;
-
-    var Canvas = require('canvas').Canvas
-        , Image = Canvas.Image
-        , canvas = new Canvas(width, height)
+    var canvas = new Canvas(width, height)
         , ctx = canvas.getContext('2d');
 
-        console.log(Canvas);
+    console.log(Canvas);
 
-    var d3 = require('d3');
-    var d3Scale = require("d3-scale")
+
 
     var ctx = canvas.getContext('2d');
-    ctx.strokeRect(0,0, width, height);
+    ctx.strokeRect(0, 0, width, height);
     ctx.translate(0, height);
-    ctx.scale(1,-1);
+    ctx.scale(1, -1);
 
-    
-    var y = d3Scale.scaleLinear()
-      .domain([d3.min(input.low), d3.max(input.high)])
-      .range([50, height-50]);
-   
-    
-    let barsCount   = input.close.length;
+
+    var y = scaleLinear()
+        .domain([min(input.low), max(input.high)])
+        .range([50, height - 50]);
+
+
+    let barsCount = input.close.length;
     let widthofBars = 20;
     let gapBetweenBars = 12;
     let leftOffset = 30;
-    for(let i=0; i< barsCount ; i++) {
+    for (let i = 0; i < barsCount; i++) {
         let open = input.open[i];
         let high = input.high[i];
-        let low  = input.low[i];
-        let close= input.close[i];
+        let low = input.low[i];
+        let close = input.close[i];
         let height = Math.abs(y(open) - y(close));
         height = height > 0 ? height : 2;
-        let xValue = leftOffset + ((widthofBars + gapBetweenBars)  * i);
+        let xValue = leftOffset + ((widthofBars + gapBetweenBars) * i);
         let colo;
         let start;
-        if(open > close) {
+        if (open > close) {
             colo = '#e86c57';
             start = y(close);
         } else {
@@ -84,11 +81,11 @@ module.exports = function drawCandleStick(input) {
         ctx.beginPath();
         ctx.moveTo(xValue, y(high));
         ctx.lineTo(xValue, y(low));
-        ctx.fillRect(xValue - (widthofBars/2), start, widthofBars, height);
+        ctx.fillRect(xValue - (widthofBars / 2), start, widthofBars, height);
         ctx.fill();
         ctx.stroke();
-    }    
-    return canvas.toBuffer()
+    }
+    return canvas.toBuffer('image/png')
 }
 
 

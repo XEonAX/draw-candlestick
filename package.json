@@ -1,6 +1,7 @@
 {
+  "type": "module",
   "name": "draw-candlestick",
-  "version": "2.0.3",
+  "version": "3.0.0",
   "description": "Repository to test candlestick pattern data. Give an input and it will return an buffer of the drawn candlestick pattern",
   "main": "index.js",
   "scripts": {
@@ -8,17 +9,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anandanand84/draw-candlestick.git"
+    "url": "git+https://github.com/XEonAX/draw-candlestick.git"
   },
   "author": "Anand Aravindan <anand.anand84@gmail.com> (traderslab.in)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/anandanand84/draw-candlestick/issues"
+    "url": "https://github.com/XEonAX/draw-candlestick/issues"
   },
-  "homepage": "https://github.com/anandanand84/draw-candlestick#readme",
+  "homepage": "https://github.com/XEonAX/draw-candlestick#readme",
   "dependencies": {
-    "canvas": "^2.0.0",
-    "d3": "^4.4.0",
-    "d3-scale": "^1.0.4"
+    "@napi-rs/canvas": "^0.1.53",
+    "d3": "^7.9.0",
+    "d3-scale": "^4.0.2"
   }
 }
